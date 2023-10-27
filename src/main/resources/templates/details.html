@@ -1,0 +1,33 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+<div layout:fragment="main_content">
+    <div class="row mt-5 col-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="'Client Name: ' + ${application_request.getUserName()}"/>
+                        <h5 class="card-title" th:text="'Course Name: ' + ${application_request.getCourseName()}"/>
+                        <h5 class="card-title" th:text="'Phone Number: ' + ${application_request.getPhone()}"/>
+                        <h5 class="card-title"
+                            th:text="'Unhandled: ' + ${application_request.isApplicationUnhandled()}"/>
+                        <p class="card-text" th:text="${application_request.getCommentary()}"></p>
+                    </div>
+                    <div class="row">
+                        <form th:if="${application_request.isApplicationUnhandled()}" th:action="@{'/application-request/' + ${application_request.getId()} + '/update'}"
+                              method="post">
+                            <button class="btn btn-success w-100 mt-3">MARK AS HANDLED</button>
+                        </form>
+                        <form th:action="@{'/application-request/' + ${application_request.getId()} + '/delete'}"
+                              method="post">
+                            <button class="btn btn-danger w-100 mt-3">DELETE</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
